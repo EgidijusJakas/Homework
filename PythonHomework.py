@@ -89,8 +89,21 @@ for i in files_array:
     all_dict_symbols = counter(all_symbols, dict_symbols_all)
     one_dict_words = counter(words, dict_words)
     all_dict_words = counter(all_words, dict_words_all)
+    num += 1
+    # Write symbols and words statistics of individual files
+    f.write("%d file: " % num + files_array[index] + " \nSymbols: \n")
+    for symbol, times in one_dict_symbols.items():
+        f.write('Symbol: "' + symbol + '" repeats: ' + str(times) + 'x \n')
+    f.write("Words:\n")
+    for word, times in one_dict_words.items():
+        f.write('Word: "' + word + '" repeats: ' + str(times) + 'x \n')
+    index += 1
 
-print one_dict_symbols
-print all_dict_symbols
-print one_dict_words
-print all_dict_words
+# Write symbols and words statistics of all files
+f.write("\nAll files statistics: \nSymbols: \n")
+for symbol, times in all_dict_symbols.items():
+    f.write('Symbol: "' + symbol + '" repeats: ' + str(times) + 'x \n')
+f.write("Words:\n")
+for word, times in all_dict_words.items():
+    f.write('Word: "' + word + '" repeats: ' + str(times) + 'x \n')
+f.close()
