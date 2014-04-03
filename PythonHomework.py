@@ -1,5 +1,16 @@
 import os
+import collections
 import sys
+
+
+def counter(array, dictionary):
+    """ Puts array members (directory files) to dictionaries """
+    for x in array:
+        if x not in dictionary.keys():
+            dictionary[x] = 1
+        else:
+            dictionary[x] += 1
+    return dictionary
 
 
 def get_symbols(files, symbols):
@@ -10,7 +21,6 @@ def get_symbols(files, symbols):
             symbols.append(symbol)
         if not symbol:
             break
-    print symbols
     return symbols
 
 
@@ -29,26 +39,35 @@ def get_words(f, words):
         elif (len(word) > 0):
             words.append(word)
             word = ""
-    print words
     return words
 
 
+files_array = []
+
 # Checks if sys.argv array have not only file, but url as well
 if len(sys.argv) < 2:
-    print("Please enter directory path")
+    print("Enter directory path")
+    quit()
+# Checks if directory exists
+elif not os.path.isdir(sys.argv[1]):
+    print("Directory path is entered incorrectly")
     quit()
 else:
     path = sys.argv[1]
 
-files_array = []
 # Creates array of all files in selected directory
 for item_name in os.listdir(path):
     item_name = os.path.join(path, item_name)
     if (os.path.isfile(item_name) and item_name != path + '\statistics.txt'):
         files_array.append(item_name)
 
+# Creates statistics file in directory we read files
+f = open(path + '\statistics.txt', 'w+')
 index = 0
-# files array loop
+all_words = []
+all_symbols = []
+num = 0
+# All files in directory loop
 for i in files_array:
     # Read symbols from file
     file = open(files_array[index], 'r')
@@ -60,6 +79,18 @@ for i in files_array:
     words = []
     get_words(file, words)
     file.close()
-    index += 1
+    dict_symbols = {}
+    dict_symbols_all = {}
+    dict_words = {}
+    dict_words_all = {}
+    all_words.extend(words)
+    all_symbols.extend(symbols)
+    one_dict_symbols = counter(symbols, dict_symbols)
+    all_dict_symbols = counter(all_symbols, dict_symbols_all)
+    one_dict_words = counter(words, dict_words)
+    all_dict_words = counter(all_words, dict_words_all)
 
-print files_array
+print one_dict_symbols
+print all_dict_symbols
+print one_dict_words
+print all_dict_words
