@@ -14,6 +14,25 @@ def get_symbols(files, symbols):
     return symbols
 
 
+def get_words(f, words):
+    """ Reads file and put words to array """
+    text = ""
+    word = ""
+    while True:
+        line = f.readline().lower()
+        if not line:
+            break
+        text += line
+    for i in text:
+        if i.isalpha():
+            word += i
+        elif (len(word) > 0):
+            words.append(word)
+            word = ""
+    print words
+    return words
+
+
 # Checks if sys.argv array have not only file, but url as well
 if len(sys.argv) < 2:
     print("Please enter directory path")
@@ -35,6 +54,11 @@ for i in files_array:
     file = open(files_array[index], 'r')
     symbols = []
     get_symbols(file, symbols)
+    file.close()
+    # Read words from file
+    file = open(files_array[index], 'r')
+    words = []
+    get_words(file, words)
     file.close()
     index += 1
 
