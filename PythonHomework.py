@@ -63,19 +63,17 @@ for item_name in os.listdir(path):
 
 # Creates statistics file in directory we read files
 f = open(path + '\statistics.txt', 'w+')
-index = 0
 all_words = []
 all_symbols = []
-num = 0
 # All files in directory loop
-for i in files_array:
+for num, filename in enumerate(files_array):
     # Read symbols from file
-    file = open(files_array[index], 'r')
+    file = open(filename, 'r')
     symbols = []
     get_symbols(file, symbols)
     file.close()
     # Read words from file
-    file = open(files_array[index], 'r')
+    file = open(filename, 'r')
     words = []
     get_words(file, words)
     file.close()
@@ -91,13 +89,12 @@ for i in files_array:
     all_dict_words = counter(all_words, dict_words_all)
     num += 1
     # Write symbols and words statistics of individual files
-    f.write("%d file: " % num + files_array[index] + " \nSymbols: \n")
+    f.write("%d file: " % num + filename + " \nSymbols: \n")
     for symbol, times in one_dict_symbols.items():
         f.write('Symbol: "' + symbol + '" repeats: ' + str(times) + 'x \n')
     f.write("Words:\n")
     for word, times in one_dict_words.items():
         f.write('Word: "' + word + '" repeats: ' + str(times) + 'x \n')
-    index += 1
 
 # Write symbols and words statistics of all files
 f.write("\nAll files statistics: \nSymbols: \n")
