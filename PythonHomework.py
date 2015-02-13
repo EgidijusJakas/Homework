@@ -2,6 +2,7 @@ import os
 import collections
 import sys
 
+#FIRST COMMIT
 
 def counter(array, dictionary):
     """ Puts array members (directory files) to dictionaries """
