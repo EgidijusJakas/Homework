@@ -3,7 +3,7 @@ import collections
 import sys
 
 #FIRST COMMIT
-
+#level-one-second branch modified
 def counter(array, dictionary):
     """ Puts array members (directory files) to dictionaries """
     for x in array:
